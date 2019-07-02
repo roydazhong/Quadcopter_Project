@@ -28,7 +28,7 @@ class Task():
 
     def get_reward(self):
         """Uses current pose of sim to return reward."""
-        reward = 1.-.03*(abs(self.sim.pose[:3] - self.target_pos)).sum()
+        reward = 1.-.003*(abs(self.sim.pose[:3] - self.target_pos)).sum() 
         return reward
 
     def step(self, rotor_speeds):
@@ -40,9 +40,6 @@ class Task():
             reward += self.get_reward() 
             pose_all.append(self.sim.pose)
         next_state = np.concatenate(pose_all)
-        if self.sim.pose[2] == self.target_pos[2]:
-            reward += 10
-            done = True
         return next_state, reward, done
 
     def reset(self):
